@@ -36,4 +36,41 @@ public class MoviesController : ControllerBase
 
         return Ok(movies);
     }
+
+    [HttpGet("{id}")]
+    public ActionResult<Movie> GetById(string id)
+    {
+        var movies = new List<Movie>
+        {
+            new Movie
+            {
+                Id = "1",
+                Title = "Inception",
+                Director = "Christopher Nolan",
+                Genre = "Sci-Fi",
+                ReleaseYear = 2010,
+                Rating = 8.8,
+                Description = "A skilled thief enters dreams to steal secrets."
+            },
+            new Movie
+            {
+                Id = "2",
+                Title = "The Matrix",
+                Director = "The Wachowskis",
+                Genre = "Sci-Fi",
+                ReleaseYear = 1999,
+                Rating = 8.7,
+                Description = "A hacker discovers the nature of reality."
+            }
+        };
+
+        var movie = movies.FirstOrDefault(m => m.Id == id);
+
+        if (movie is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(movie);
+    }
 }
