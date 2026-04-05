@@ -1,27 +1,34 @@
-# MovieLibraryFrontend
+# Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.0.
+## Áttekintés
+Ez a Movie Library projekt frontend része.  
+Angular technológiával készült, és a backend ASP.NET Core Web API-hoz kapcsolódik.
 
-## Development server
+A frontend feladata jelenleg:
+- a Movie Library kezdőoldal megjelenítése
+- a backendből érkező filmek lekérdezése
+- a filmek listájának megjelenítése a felhasználói felületen
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Használt technológiák
+- Angular 17
+- TypeScript
+- HTML
+- CSS
 
-## Code scaffolding
+## Projektstruktúra
+- `movie-library-frontend/` – az Angular alkalmazás fő mappája
+- `movie-library-frontend/src/app/app.component.ts` – fő komponens logika
+- `movie-library-frontend/src/app/app.component.html` – fő nézet
+- `movie-library-frontend/src/app/app.component.css` – fő stílusfájl
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Követelmények
+A frontend futtatása előtt az alábbiak szükségesek:
+- telepített Node.js
+- telepített npm
+- telepített Angular CLI
 
-## Build
+## A frontend indítása
+Lépj be az Angular projekt mappájába:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+cd frontend/movie-library-frontend
