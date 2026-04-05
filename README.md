@@ -5,8 +5,8 @@ Csapatprojekt az Alkalmazásfejlesztési technológiák tárgyhoz.
 ## Csapattagok
 
 - Tóth Judit (BFD3ES)
-- 2. csapattag
-- 3. csapattag
+- Takács Bence (RMAK8X)
+- Bagdy Dániel (K3NN0I)
 
 ## Projekt leírása
 
