@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MovieLibrary.Api.Models;
+using MovieLibrary.Api.Services;
 
 namespace MovieLibrary.Api.Controllers;
 
@@ -7,40 +8,24 @@ namespace MovieLibrary.Api.Controllers;
 [Route("api/[controller]")]
 public class MoviesController : ControllerBase
 {
-    private static readonly List<Movie> Movies =
-    [
-        new Movie
-        {
-            Id = "1",
-            Title = "Inception",
-            Director = "Christopher Nolan",
-            Genre = "Sci-Fi",
-            ReleaseYear = 2010,
-            Rating = 8.8,
-            Description = "A skilled thief enters dreams to steal secrets."
-        },
-        new Movie
-        {
-            Id = "2",
-            Title = "The Matrix",
-            Director = "The Wachowskis",
-            Genre = "Sci-Fi",
-            ReleaseYear = 1999,
-            Rating = 8.7,
-            Description = "A hacker discovers the nature of reality."
-        }
-    ];
+    private readonly MovieService _movieService;
+
+    public MoviesController(MovieService movieService)
+    {
+        _movieService = movieService;
+    }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Movie>> GetAll()
+    public async Task<ActionResult<List<Movie>>> GetAll()
     {
-        return Ok(Movies);
+        var movies = await _movieService.GetAsync();
+        return Ok(movies);
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Movie> GetById(string id)
+    public async Task<ActionResult<Movie>> GetById(string id)
     {
-        var movie = Movies.FirstOrDefault(m => m.Id == id);
+        var movie = await _movieService.GetAsync(id);
 
         if (movie is null)
         {
@@ -51,45 +36,42 @@ public class MoviesController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<Movie> Create(Movie movie)
+    public async Task<ActionResult<Movie>> Create(Movie movie)
     {
-        movie.Id = (Movies.Count + 1).ToString();
-        Movies.Add(movie);
+        await _movieService.CreateAsync(movie);
 
         return CreatedAtAction(nameof(GetById), new { id = movie.Id }, movie);
     }
 
     [HttpPut("{id}")]
-    public ActionResult<Movie> Update(string id, Movie updatedMovie)
+    public async Task<IActionResult> Update(string id, Movie updatedMovie)
     {
-        var movie = Movies.FirstOrDefault(m => m.Id == id);
+        var existingMovie = await _movieService.GetAsync(id);
+
+        if (existingMovie is null)
+        {
+            return NotFound();
+        }
+
+        updatedMovie.Id = id;
+
+        await _movieService.UpdateAsync(id, updatedMovie);
+
+        return Ok(updatedMovie);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(string id)
+    {
+        var movie = await _movieService.GetAsync(id);
 
         if (movie is null)
         {
             return NotFound();
         }
 
-        movie.Title = updatedMovie.Title;
-        movie.Director = updatedMovie.Director;
-        movie.Genre = updatedMovie.Genre;
-        movie.ReleaseYear = updatedMovie.ReleaseYear;
-        movie.Rating = updatedMovie.Rating;
-        movie.Description = updatedMovie.Description;
+        await _movieService.RemoveAsync(id);
 
-        return Ok(movie);
+        return NoContent();
     }
-    [HttpDelete("{id}")]
-public IActionResult Delete(string id)
-{
-    var movie = Movies.FirstOrDefault(m => m.Id == id);
-
-    if (movie is null)
-    {
-        return NotFound();
-    }
-
-    Movies.Remove(movie);
-
-    return NoContent();
-}
 }
