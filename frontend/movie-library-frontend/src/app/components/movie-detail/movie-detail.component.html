@@ -1,0 +1,33 @@
+<section class="panel">
+  <a routerLink="/movies" class="back-link">← Back to movies</a>
+  <p class="loading" *ngIf="isLoading">Loading movie details...</p>
+  <p class="message error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+  <article class="detail-card" *ngIf="movie && !isLoading">
+    <img
+      class="detail-poster"
+      [src]="movie.posterUrl || 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=700&q=80'"
+      [alt]="movie.title + ' poster'"
+      (error)="onPosterError()"
+    />
+    <div class="detail-content">
+      <h2>{{ movie.title }}</h2>
+      <p class="year">Released: {{ movie.year }}</p>
+      <p class="meta">
+        <span>Directed by {{ movie.director || 'Unknown Director' }}</span>
+      </p>
+      <div class="genre-badges">
+        <span *ngFor="let genre of getGenres()">{{ genre }}</span>
+      </div>
+      <p class="rating-row">
+        <span class="stars">
+          <span *ngFor="let star of getStars()">★</span>
+          <span *ngIf="getStars().length === 0" class="unrated">Unrated</span>
+        </span>
+        <span *ngIf="movie.rating !== null && movie.rating !== undefined" class="rating">{{ movie.rating | number:'1.1-1' }}/5</span>
+      </p>
+      <p class="description">{{ movie.description || 'No description available.' }}</p>
+      <a [routerLink]="['/edit', movie.id]" class="edit-link">Edit Movie</a>
+    </div>
+  </article>
+</section>

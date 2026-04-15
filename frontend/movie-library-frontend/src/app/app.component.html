@@ -1,0 +1,28 @@
+<div class="app-shell">
+  <header class="app-header">
+    <a class="brand" routerLink="/movies">Movie Libary</a>
+    <div class="search-bar">
+      <input
+        type="search"
+        placeholder="Search by title..."
+        [(ngModel)]="searchTerm"
+        (keyup.enter)="onSearch()"
+      />
+      <button type="button" (click)="onSearch()">Search</button>
+    </div>
+    <nav>
+      <a routerLink="/movies" routerLinkActive="active">Movies</a>
+      <a routerLink="/create" routerLinkActive="active">Add Movie</a>
+    </nav>
+  </header>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+</div>
+
+<section class="toast-stack">
+  <article class="toast" [class.success]="toast.type === 'success'" [class.error]="toast.type === 'error'" *ngFor="let toast of toasts$ | async">
+    <span>{{ toast.message }}</span>
+    <button type="button" (click)="dismissToast(toast.id)">×</button>
+  </article>
+</section>

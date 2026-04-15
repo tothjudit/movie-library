@@ -1,0 +1,53 @@
+<section class="panel">
+  <h2>Create Movie</h2>
+
+  <p class="message success" *ngIf="successMessage">{{ successMessage }}</p>
+  <p class="message error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+  <form [formGroup]="movieForm" (ngSubmit)="onSubmit()" novalidate>
+    <label for="title">Title</label>
+    <input id="title" type="text" formControlName="title" placeholder="e.g. The Dark Knight" />
+    <small class="error-text" *ngIf="movieForm.controls.title.touched && movieForm.controls.title.invalid">
+      <span *ngIf="movieForm.controls.title.errors?.['required']">Title is required.</span>
+      <span *ngIf="movieForm.controls.title.errors?.['maxlength']">Title must be 120 characters or less.</span>
+    </small>
+
+    <label for="year">Year</label>
+    <input id="year" type="number" formControlName="year" />
+    <small class="error-text" *ngIf="movieForm.controls.year.touched && movieForm.controls.year.invalid">
+      <span *ngIf="movieForm.controls.year.errors?.['required']">Year is required.</span>
+      <span *ngIf="movieForm.controls.year.errors?.['min']">Year must be 1888 or later.</span>
+    </small>
+
+    <label for="description">Description</label>
+    <textarea id="description" rows="5" formControlName="description" placeholder="Write a short plot summary"></textarea>
+    <small class="error-text" *ngIf="movieForm.controls.description.touched && movieForm.controls.description.invalid">
+      <span *ngIf="movieForm.controls.description.errors?.['required']">Description is required.</span>
+      <span *ngIf="movieForm.controls.description.errors?.['minlength']">Description must be at least 10 characters.</span>
+    </small>
+
+    <label for="director">Director</label>
+    <input id="director" type="text" formControlName="director" placeholder="e.g. Christopher Nolan" />
+
+    <label for="genre">Genre</label>
+    <select id="genre" formControlName="genre" multiple size="6">
+      <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+    </select>
+    <small class="helper-text" *ngIf="isGenresLoading">Loading genres...</small>
+    <small class="error-text" *ngIf="genresErrorMessage">{{ genresErrorMessage }}</small>
+
+    <label for="rating">Rating (optional, 1 to 5 stars)</label>
+    <app-star-rating formControlName="rating"></app-star-rating>
+
+    <label for="posterUrl">Poster URL</label>
+    <input id="posterUrl" type="url" formControlName="posterUrl" placeholder="https://example.com/poster.jpg" />
+    <small class="error-text" *ngIf="movieForm.controls.posterUrl.touched && movieForm.controls.posterUrl.invalid">
+      <span *ngIf="movieForm.controls.posterUrl.errors?.['required']">Poster URL is required.</span>
+      <span *ngIf="movieForm.controls.posterUrl.errors?.['pattern']">Poster URL must start with http:// or https://</span>
+    </small>
+
+    <button type="submit" [disabled]="movieForm.invalid || isSubmitting">
+      {{ isSubmitting ? 'Creating...' : 'Create Movie' }}
+    </button>
+  </form>
+</section>
