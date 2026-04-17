@@ -24,11 +24,22 @@ public class MovieService
     public async Task<Movie?> GetAsync(string id) =>
         await _moviesCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
-    public async Task CreateAsync(Movie newMovie)
+public async Task CreateAsync(Movie newMovie)
 {
     if (string.IsNullOrWhiteSpace(newMovie.Id))
     {
-        newMovie.Id = Guid.NewGuid().ToString();
+        var existingIds = await _moviesCollection
+            .Find(_ => true)
+            .Project(movie => movie.Id)
+            .ToListAsync();
+
+        var nextId = existingIds
+            .Where(id => int.TryParse(id, out _))
+            .Select(int.Parse)
+            .DefaultIfEmpty(0)
+            .Max() + 1;
+
+        newMovie.Id = nextId.ToString();
     }
 
     await _moviesCollection.InsertOneAsync(newMovie);
