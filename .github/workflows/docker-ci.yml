@@ -10,8 +10,12 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - name: Checkout repository
@@ -41,8 +45,26 @@ jobs:
         working-directory: ./frontend/movie-library-frontend
         run: npm run build
 
-      - name: Build backend Docker image
-        run: docker build -t movie-library-backend ./backend
+      - name: Log in to GitHub Container Registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build frontend Docker image
-        run: docker build -t movie-library-frontend ./frontend/movie-library-frontend
+      - name: Build and push backend Docker image
+        if: github.event_name != 'pull_request'
+        uses: docker/build-push-action@v6
+        with:
+          context: ./backend
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/movie-library-backend:latest
+
+      - name: Build and push frontend Docker image
+        if: github.event_name != 'pull_request'
+        uses: docker/build-push-action@v6
+        with:
+          context: ./frontend/movie-library-frontend
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/movie-library-frontend:latest
