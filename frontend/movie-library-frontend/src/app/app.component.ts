@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<Movie[]>('http://localhost:5263/api/Movies')
+    this.http.get<Movie[]>('http://localhost:8080/api/Movies')
       .subscribe({
         next: (data) => {
           this.movies = data;
