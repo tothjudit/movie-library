@@ -1,0 +1,48 @@
+name: Docker CI
+
+on:
+  push:
+    branches:
+      - feature/devops
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore backend dependencies
+        run: dotnet restore ./backend/MovieLibrary.Api/MovieLibrary.Api.csproj
+
+      - name: Build backend
+        run: dotnet build ./backend/MovieLibrary.Api/MovieLibrary.Api.csproj --configuration Release --no-restore
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install frontend dependencies
+        working-directory: ./frontend/movie-library-frontend
+        run: npm install
+
+      - name: Build frontend
+        working-directory: ./frontend/movie-library-frontend
+        run: npm run build
+
+      - name: Build backend Docker image
+        run: docker build -t movie-library-backend ./backend
+
+      - name: Build frontend Docker image
+        run: docker build -t movie-library-frontend ./frontend/movie-library-frontend
