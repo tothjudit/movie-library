@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: movie-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: movie-backend
+  template:
+    metadata:
+      labels:
+        app: movie-backend
+    spec:
+      containers:
+        - name: movie-backend
+          image: ghcr.io/tothjudit/movie-library-backend:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MongoDbSettings__ConnectionString
+              value: mongodb://mongo:27017
+            - name: MongoDbSettings__DatabaseName
+              value: MovieLibraryDb
+            - name: MongoDbSettings__MoviesCollectionName
+              value: Movies
+            - name: ASPNETCORE_URLS
+              value: http://+:8080
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Development
