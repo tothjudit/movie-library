@@ -1,0 +1,41 @@
+@MovieLibrary.Api_HostAddress = http://localhost:5263
+
+### Get all movies
+GET {{MovieLibrary.Api_HostAddress}}/api/Movies
+Accept: application/json
+
+### Get movie by id
+GET {{MovieLibrary.Api_HostAddress}}/api/Movies/1
+Accept: application/json
+
+### Create movie
+POST {{MovieLibrary.Api_HostAddress}}/api/Movies
+Content-Type: application/json
+
+{
+  "id": "",
+  "title": "Interstellar",
+  "director": "Christopher Nolan",
+  "genre": "Sci-Fi",
+  "releaseYear": 2014,
+  "rating": 8.6,
+  "description": "A team travels through a wormhole in space to save humanity."
+}
+
+### Update movie
+PUT {{MovieLibrary.Api_HostAddress}}/api/Movies/1
+Content-Type: application/json
+
+{
+  "id": "1",
+  "title": "Inception Updated",
+  "director": "Christopher Nolan",
+  "genre": "Sci-Fi",
+  "releaseYear": 2010,
+  "rating": 9.0,
+  "description": "An updated description for the movie."
+}
+
+### Delete movie
+DELETE {{MovieLibrary.Api_HostAddress}}/api/Movies/2
+Accept: application/json

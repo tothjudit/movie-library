@@ -1,0 +1,70 @@
+name: Docker CI
+
+on:
+  push:
+    branches:
+      - feature/devops
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore backend dependencies
+        run: dotnet restore ./backend/MovieLibrary.Api/MovieLibrary.Api.csproj
+
+      - name: Build backend
+        run: dotnet build ./backend/MovieLibrary.Api/MovieLibrary.Api.csproj --configuration Release --no-restore
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install frontend dependencies
+        working-directory: ./frontend/movie-library-frontend
+        run: npm install
+
+      - name: Build frontend
+        working-directory: ./frontend/movie-library-frontend
+        run: npm run build
+
+      - name: Log in to GitHub Container Registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push backend Docker image
+        if: github.event_name != 'pull_request'
+        uses: docker/build-push-action@v6
+        with:
+          context: ./backend
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/movie-library-backend:latest
+
+      - name: Build and push frontend Docker image
+        if: github.event_name != 'pull_request'
+        uses: docker/build-push-action@v6
+        with:
+          context: ./frontend/movie-library-frontend
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/movie-library-frontend:latest
