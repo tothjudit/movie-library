@@ -1,0 +1,38 @@
+.star-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.star-rating button {
+  border: none;
+  background: transparent;
+  font-size: 1.7rem;
+  line-height: 1;
+  color: #52525b;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.1s ease, color 0.2s ease;
+}
+
+.star-rating button:hover {
+  transform: scale(1.05);
+}
+
+.star-rating button.filled {
+  color: #f5c518;
+}
+
+.star-rating button.clear {
+  font-size: 0.85rem;
+  margin-left: 8px;
+  color: #d4d4d8;
+  background: #2d2d2d;
+  border-radius: 999px;
+  padding: 5px 10px;
+}
+
+.star-rating button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

@@ -1,39 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-
-interface Movie {
-  id: string;
-  title: string;
-  director: string;
-  genre: string;
-  releaseYear: number;
-  rating: number;
-  description: string;
-}
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { ToastMessage, ToastService } from './services/toast.service';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, HttpClientModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  title = 'movie-library-frontend';
-  movies: Movie[] = [];
+export class AppComponent {
+  searchTerm = '';
+  readonly toasts$: Observable<ToastMessage[]>;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private readonly router: Router,
+    private readonly toastService: ToastService
+  ) {
+    this.toasts$ = this.toastService.toasts$;
+  }
 
-  ngOnInit(): void {
-    this.http.get<Movie[]>('http://localhost:8080/api/Movies')
-      .subscribe({
-        next: (data) => {
-          this.movies = data;
-        },
-        error: (error) => {
-          console.error('Error loading movies:', error);
-        }
-      });
+  onSearch(): void {
+    this.router.navigate(['/movies'], { queryParams: { q: this.searchTerm || null } });
+  }
+
+  dismissToast(id: number): void {
+    this.toastService.dismiss(id);
   }
 }

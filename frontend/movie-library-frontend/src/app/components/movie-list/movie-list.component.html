@@ -1,0 +1,61 @@
+<section class="panel">
+  <h2>All Movies</h2>
+
+  <p class="message success" *ngIf="successMessage">{{ successMessage }}</p>
+  <p class="message error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+  <div class="movie-grid skeleton-grid" *ngIf="isLoading">
+    <article class="movie-card skeleton" *ngFor="let item of skeletonItems">
+      <div class="skeleton-poster"></div>
+      <div class="skeleton-line title"></div>
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line short"></div>
+    </article>
+  </div>
+
+  <div *ngIf="!isLoading && displayedMovies.length === 0" class="empty-state">
+    No movies found. Add your first movie.
+  </div>
+
+  <div class="movie-grid" *ngIf="!isLoading">
+    <article class="movie-card" *ngFor="let movie of displayedMovies">
+      <a class="poster-link" [routerLink]="['/movies', movie.id]">
+        <img
+          class="poster"
+          [src]="movie.posterUrl || 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=600&q=80'"
+          [alt]="movie.title + ' poster'"
+          (error)="onPosterError(movie)"
+        />
+      </a>
+      <h3>{{ movie.title }}</h3>
+      <p class="meta">
+        <span class="year">{{ movie.year }}</span>
+        <span class="dot">•</span>
+        <span>{{ movie.director || 'Unknown Director' }}</span>
+      </p>
+      <div class="genre-badges">
+        <span *ngFor="let genre of getGenres(movie)">{{ genre }}</span>
+      </div>
+      <p class="description">
+        {{ (movie.description || 'No description available.') | slice:0:120 }}
+        <span *ngIf="(movie.description || '').length > 120">...</span>
+      </p>
+      <div class="credits">
+        <span class="stars">
+          <span *ngFor="let star of getStarArray(movie.rating)">★</span>
+          <span class="unrated" *ngIf="getStarArray(movie.rating).length === 0">Unrated</span>
+        </span>
+        <span *ngIf="movie.rating !== null && movie.rating !== undefined" class="rating">{{ movie.rating | number:'1.1-1' }}/5</span>
+      </div>
+      <div class="actions">
+        <a class="btn view-btn" [routerLink]="['/movies', movie.id]">View</a>
+        <a class="btn edit-btn" [routerLink]="['/edit', movie.id]">Edit</a>
+        <button class="btn delete-btn" type="button" (click)="onDelete(movie)">Delete</button>
+      </div>
+    </article>
+
+    <a class="add-movie-card" routerLink="/create" aria-label="Add new movie">
+      <span>+</span>
+    </a>
+  </div>
+</section>
