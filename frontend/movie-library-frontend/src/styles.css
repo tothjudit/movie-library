@@ -1,1 +1,21 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, Arial, sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(245, 197, 24, 0.12), transparent 38%),
+    linear-gradient(180deg, #111111 0%, #1c1c1c 100%);
+  color: #e5e7eb;
+  min-height: 100vh;
+}
+
+.panel {
+  background: #181818;
+  border: 1px solid #303030;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+}

@@ -1,26 +1,28 @@
-<div class="container">
-  <h1>Movie Library</h1>
-  <p>Welcome to the Movie Library application.</p>
-
-  <section class="card">
-    <h2>Frontend is running</h2>
-    <p>The Angular application has been created successfully.</p>
-  </section>
-
-  <section class="card">
-    <h2>Movies from backend</h2>
-
-    <div *ngIf="movies.length === 0">
-      <p>No movies found.</p>
+<div class="app-shell">
+  <header class="app-header">
+    <a class="brand" routerLink="/movies">Movie Libary</a>
+    <div class="search-bar">
+      <input
+        type="search"
+        placeholder="Search by title..."
+        [(ngModel)]="searchTerm"
+        (keyup.enter)="onSearch()"
+      />
+      <button type="button" (click)="onSearch()">Search</button>
     </div>
-
-    <div *ngFor="let movie of movies" class="movie-item">
-      <h3>{{ movie.title }}</h3>
-      <p><strong>Director:</strong> {{ movie.director }}</p>
-      <p><strong>Genre:</strong> {{ movie.genre }}</p>
-      <p><strong>Release year:</strong> {{ movie.releaseYear }}</p>
-      <p><strong>Rating:</strong> {{ movie.rating }}</p>
-      <p><strong>Description:</strong> {{ movie.description }}</p>
-    </div>
-  </section>
+    <nav>
+      <a routerLink="/movies" routerLinkActive="active">Movies</a>
+      <a routerLink="/create" routerLinkActive="active">Add Movie</a>
+    </nav>
+  </header>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
 </div>
+
+<section class="toast-stack">
+  <article class="toast" [class.success]="toast.type === 'success'" [class.error]="toast.type === 'error'" *ngFor="let toast of toasts$ | async">
+    <span>{{ toast.message }}</span>
+    <button type="button" (click)="dismissToast(toast.id)">×</button>
+  </article>
+</section>

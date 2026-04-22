@@ -1,0 +1,107 @@
+.back-link,
+.edit-link {
+  display: inline-block;
+  margin-bottom: 14px;
+  text-decoration: none;
+  color: #f5c518;
+  font-weight: 600;
+}
+
+.detail-card {
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 18px;
+  background: linear-gradient(180deg, #202020 0%, #171717 100%);
+  display: grid;
+  grid-template-columns: minmax(220px, 320px) 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.detail-poster {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  max-height: 460px;
+}
+
+.detail-content h2 {
+  margin-top: 0;
+}
+
+.detail-card h2 {
+  margin: 0 0 8px;
+  color: #fafafa;
+}
+
+.detail-card .year {
+  color: #fbbf24;
+  font-weight: 600;
+}
+
+.detail-card .meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  color: #a1a1aa;
+}
+
+.detail-card .genre-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.detail-card .genre-badges span {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(245, 197, 24, 0.16);
+  color: #f5c518;
+  font-weight: 600;
+  font-size: 0.82rem;
+}
+
+.detail-card .rating {
+  color: #f59e0b;
+  font-weight: 700;
+}
+
+.detail-card .rating-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0 12px;
+}
+
+.detail-card .stars {
+  color: #f5c518;
+}
+
+.detail-card .unrated {
+  color: #71717a;
+}
+
+.detail-card .description {
+  margin-bottom: 18px;
+  line-height: 1.6;
+  color: #d4d4d8;
+}
+
+.loading {
+  color: #d1d5db;
+}
+
+.message.error {
+  background: rgba(239, 68, 68, 0.14);
+  color: #fda4af;
+  padding: 10px 12px;
+  border-radius: 8px;
+}
+
+@media (max-width: 800px) {
+  .detail-card {
+    grid-template-columns: 1fr;
+  }
+}
