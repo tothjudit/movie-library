@@ -1,0 +1,15 @@
+{
+  "name": "movie-library-root",
+  "private": true,
+  "scripts": {
+    "dev": "npm run bootstrap && concurrently --kill-others-on-fail \"npm run dev:mongo\" \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "bootstrap": "npm install",
+    "dev:mongo": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"$name='movie-library-mongo'; $exists=docker ps -a --format '{{.Names}}' | Select-String -SimpleMatch $name; if($exists){ docker start $name } else { docker run -d --name $name -p 27017:27017 mongo:8 }\"",
+    "dev:backend": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"$listener=Get-NetTCPConnection -LocalPort 5263 -State Listen -ErrorAction SilentlyContinue; if($listener){ Write-Host 'Backend already running on port 5263, reusing existing process.'; exit 0 } else { dotnet run --project backend/MovieLibrary.Api/MovieLibrary.Api.csproj }\"",
+    "dev:frontend": "npm --prefix frontend/movie-library-frontend start",
+    "install:frontend": "npm --prefix frontend/movie-library-frontend install"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
