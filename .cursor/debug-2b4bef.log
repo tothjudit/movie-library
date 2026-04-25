@@ -1,0 +1,10 @@
+{"sessionId":"2b4bef","runId":"initial","hypothesisId":"H3","location":"movie-list.component.ts:loadMovies","message":"loadMovies invoked","data":{"isLoading":false,"searchTerm":""},"timestamp":1777135042956}
+{"sessionId":"2b4bef","runId":"initial","hypothesisId":"H1","location":"movie.service.ts:getMovies","message":"Fetching movie list","data":{"apiUrl":"/api/movies"},"timestamp":1777135042957}
+{"sessionId":"2b4bef","runId":"initial","hypothesisId":"H3","location":"movie-list.component.ts:loadMovies","message":"loadMovies invoked","data":{"isLoading":false,"searchTerm":""},"timestamp":1777135076681}
+{"sessionId":"2b4bef","runId":"initial","hypothesisId":"H1","location":"movie.service.ts:getMovies","message":"Fetching movie list","data":{"apiUrl":"/api/movies"},"timestamp":1777135076682}
+{"sessionId":"2b4bef","runId":"initial","hypothesisId":"H3","location":"movie-list.component.ts:loadMovies","message":"loadMovies invoked","data":{"isLoading":false,"searchTerm":""},"timestamp":1777135080255}
+{"sessionId":"2b4bef","runId":"initial","hypothesisId":"H1","location":"movie.service.ts:getMovies","message":"Fetching movie list","data":{"apiUrl":"/api/movies"},"timestamp":1777135080255}
+{"sessionId":"2b4bef","runId":"initial","hypothesisId":"H3","location":"movie-list.component.ts:loadMovies","message":"loadMovies invoked","data":{"isLoading":false,"searchTerm":""},"timestamp":1777135088477}
+{"sessionId":"2b4bef","runId":"initial","hypothesisId":"H1","location":"movie.service.ts:getMovies","message":"Fetching movie list","data":{"apiUrl":"/api/movies"},"timestamp":1777135088477}
+{"sessionId":"2b4bef","runId":"initial","hypothesisId":"H3","location":"movie-list.component.ts:loadMovies","message":"loadMovies invoked","data":{"isLoading":false,"searchTerm":""},"timestamp":1777135194918}
+{"sessionId":"2b4bef","runId":"initial","hypothesisId":"H1","location":"movie.service.ts:getMovies","message":"Fetching movie list","data":{"apiUrl":"/api/movies"},"timestamp":1777135194918}
