@@ -71,3 +71,28 @@ Backend API: `http://localhost:5263`
 
 Megjegyzés: a `dev` script automatikusan lefuttat egy `npm install` lépést a gyökérben, így a szükséges `concurrently` csomag hiánya nem okoz indulási hibát.
 Ha a backend már fut a `5263` porton, a gyökér script új példány indítása helyett automatikusan a futó példányt használja.
+
+## Tesztadatok betöltése
+
+A projekt teszteléséhez előkészített minta filmadatok találhatók itt:
+
+- `docs/test-data/12_filmek.json`
+
+Automatikus betöltéshez egy segédscript is rendelkezésre áll:
+
+- `scripts/load_movies.py`
+
+### Futtatás
+
+A script futtatása előtt a backendnek elérhetőnek kell lennie a következő címen:
+
+- `http://localhost:8080/api/Movies`
+
+Szükség esetén telepítsd a `requests` csomagot:
+
+```bash
+pip install requests
+
+Ezután a repó gyökerében futtasd:
+```bash
+python scripts/load_movies.py
