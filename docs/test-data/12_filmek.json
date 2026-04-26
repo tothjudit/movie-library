@@ -1,0 +1,110 @@
+[
+  {
+    "title": "Inception",
+    "description": "A skilled thief enters dreams to steal secrets and is offered a chance at redemption.",
+    "releaseYear": 2010,
+    "director": "Christopher Nolan",
+    "genre": "Sci-Fi",
+    "rating": 5,
+    "posterUrl": "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "title": "Interstellar",
+    "description": "A team travels through a wormhole in space to search for a new home for humanity.",
+    "releaseYear": 2014,
+    "director": "Christopher Nolan",
+    "genre": "Sci-Fi",
+    "rating": 5,
+    "posterUrl": "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "title": "The Prestige",
+    "description": "Two rival magicians battle to create the ultimate illusion.",
+    "releaseYear": 2006,
+    "director": "Christopher Nolan",
+    "genre": "Drama",
+    "rating": 4.5,
+    "posterUrl": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "title": "The Dark Knight",
+    "description": "Batman faces the Joker in a battle for Gotham's soul.",
+    "releaseYear": 2008,
+    "director": "Christopher Nolan",
+    "genre": "Action",
+    "rating": 5,
+    "posterUrl": "https://images.unsplash.com/photo-1513106580091-1d82408b8cd6?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "title": "Memento",
+    "description": "A man with short-term memory loss tries to solve his wife's murder.",
+    "releaseYear": 2000,
+    "director": "Christopher Nolan",
+    "genre": "Thriller",
+    "rating": 4.5,
+    "posterUrl": "https://images.unsplash.com/photo-1518929458119-e5bf444c30f4?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "title": "Dunkirk",
+    "description": "Allied soldiers are evacuated during a desperate World War II operation.",
+    "releaseYear": 2017,
+    "director": "Christopher Nolan",
+    "genre": "War",
+    "rating": 4,
+    "posterUrl": "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "title": "Tenet",
+    "description": "A secret agent manipulates time to prevent global catastrophe.",
+    "releaseYear": 2020,
+    "director": "Christopher Nolan",
+    "genre": "Sci-Fi",
+    "rating": 4,
+    "posterUrl": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "title": "Oppenheimer",
+    "description": "The story of J. Robert Oppenheimer and the creation of the atomic bomb.",
+    "releaseYear": 2023,
+    "director": "Christopher Nolan",
+    "genre": "Biography",
+    "rating": 5,
+    "posterUrl": "https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "title": "Batman Begins",
+    "description": "Bruce Wayne begins his journey to become Batman.",
+    "releaseYear": 2005,
+    "director": "Christopher Nolan",
+    "genre": "Action",
+    "rating": 4.5,
+    "posterUrl": "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "title": "Insomnia",
+    "description": "A detective investigates a murder in a town where the sun never sets.",
+    "releaseYear": 2002,
+    "director": "Christopher Nolan",
+    "genre": "Crime",
+    "rating": 4,
+    "posterUrl": "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "title": "The Matrix",
+    "description": "A computer hacker learns the nature of reality and joins a rebellion.",
+    "releaseYear": 1999,
+    "director": "Lana Wachowski, Lilly Wachowski",
+    "genre": "Sci-Fi",
+    "rating": 5,
+    "posterUrl": "https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "title": "Gladiator",
+    "description": "A Roman general seeks justice after betrayal and loss.",
+    "releaseYear": 2000,
+    "director": "Ridley Scott",
+    "genre": "Historical Drama",
+    "rating": 4.5,
+    "posterUrl": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80"
+  }
+]
