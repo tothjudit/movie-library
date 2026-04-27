@@ -24,8 +24,22 @@ public class MovieService
     public async Task<Movie?> GetAsync(string id) =>
         await _moviesCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
-    public async Task CreateAsync(Movie newMovie) =>
+    public async Task CreateAsync(Movie newMovie)
+    {
+        if (string.IsNullOrWhiteSpace(newMovie.Id))
+        {
+            var movies = await _moviesCollection.Find(_ => true).ToListAsync();
+
+            var maxId = movies
+                .Select(m => int.TryParse(m.Id, out var parsedId) ? parsedId : 0)
+                .DefaultIfEmpty(0)
+                .Max();
+
+            newMovie.Id = (maxId + 1).ToString();
+        }
+
         await _moviesCollection.InsertOneAsync(newMovie);
+    }
 
     public async Task UpdateAsync(string id, Movie updatedMovie) =>
         await _moviesCollection.ReplaceOneAsync(x => x.Id == id, updatedMovie);
