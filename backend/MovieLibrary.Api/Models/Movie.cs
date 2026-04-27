@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace MovieLibrary.Api.Models;
@@ -7,7 +6,6 @@ namespace MovieLibrary.Api.Models;
 public class Movie
 {
     [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
     public string? Id { get; set; }
 
     [Required]
@@ -22,6 +20,7 @@ public class Movie
 
     [Range(0, 5)]
     public double? Rating { get; set; }
+
     public string? Description { get; set; }
     public string? PosterUrl { get; set; }
 }
