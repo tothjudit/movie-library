@@ -13,7 +13,7 @@
     </article>
   </div>
 
-  <div *ngIf="!isLoading && displayedMovies.length === 0" class="empty-state">
+  <div *ngIf="!isLoading && filteredMovies.length === 0" class="empty-state">
     No movies found. Add your first movie.
   </div>
 
@@ -57,5 +57,40 @@
     <a class="add-movie-card" routerLink="/create" aria-label="Add new movie">
       <span>+</span>
     </a>
+  </div>
+
+  <div class="pagination" *ngIf="!isLoading && filteredMovies.length > 0">
+    <button
+      class="pagination-btn"
+      type="button"
+      (click)="goToPreviousPage()"
+      [disabled]="currentPage === 1"
+    >
+      Previous
+    </button>
+
+    <div class="page-numbers">
+      <button
+        class="page-number-btn"
+        type="button"
+        *ngFor="let page of pageNumbers"
+        (click)="goToPage(page)"
+        [class.active]="page === currentPage"
+        [attr.aria-current]="page === currentPage ? 'page' : null"
+      >
+        {{ page }}
+      </button>
+    </div>
+
+    <span class="page-indicator">Page {{ currentPage }} of {{ totalPages }}</span>
+
+    <button
+      class="pagination-btn"
+      type="button"
+      (click)="goToNextPage()"
+      [disabled]="currentPage === totalPages"
+    >
+      Next
+    </button>
   </div>
 </section>
