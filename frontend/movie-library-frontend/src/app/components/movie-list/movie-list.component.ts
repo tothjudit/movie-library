@@ -15,6 +15,8 @@ export class MovieListComponent implements OnInit {
   isLoading = false;
   errorMessage = '';
   successMessage = '';
+  readonly pageSize = 4;
+  currentPage = 1;
   readonly skeletonItems = Array.from({ length: 8 }, (_, index) => index);
 
   constructor(
@@ -26,16 +28,30 @@ export class MovieListComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParamMap.subscribe((params) => {
       this.searchTerm = (params.get('q') || '').trim().toLowerCase();
+      this.currentPage = 1;
     });
     this.loadMovies();
   }
 
-  get displayedMovies(): Movie[] {
+  get filteredMovies(): Movie[] {
     if (!this.searchTerm) {
       return this.movies;
     }
 
     return this.movies.filter((movie) => movie.title.toLowerCase().includes(this.searchTerm));
+  }
+
+  get totalPages(): number {
+    return Math.max(1, Math.ceil(this.filteredMovies.length / this.pageSize));
+  }
+
+  get pageNumbers(): number[] {
+    return Array.from({ length: this.totalPages }, (_, index) => index + 1);
+  }
+
+  get displayedMovies(): Movie[] {
+    const start = (this.currentPage - 1) * this.pageSize;
+    return this.filteredMovies.slice(start, start + this.pageSize);
   }
 
   getGenres(movie: Movie): string[] {
@@ -57,6 +73,7 @@ export class MovieListComponent implements OnInit {
     this.movieService.getMovies().subscribe({
       next: (movies) => {
         this.movies = movies;
+        this.currentPage = 1;
         this.isLoading = false;
       },
       error: (error: Error) => {
@@ -83,6 +100,7 @@ export class MovieListComponent implements OnInit {
     this.movieService.deleteMovie(movie.id).subscribe({
       next: () => {
         this.movies = this.movies.filter((item) => item.id !== movie.id);
+        this.currentPage = Math.min(this.currentPage, this.totalPages);
         this.successMessage = 'Movie deleted successfully.';
         this.toastService.success(this.successMessage);
       },
@@ -95,5 +113,29 @@ export class MovieListComponent implements OnInit {
 
   onPosterError(movie: Movie): void {
     movie.posterUrl = 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=600&q=80';
+  }
+
+  goToPreviousPage(): void {
+    if (this.currentPage <= 1) {
+      return;
+    }
+
+    this.currentPage -= 1;
+  }
+
+  goToNextPage(): void {
+    if (this.currentPage >= this.totalPages) {
+      return;
+    }
+
+    this.currentPage += 1;
+  }
+
+  goToPage(page: number): void {
+    if (page < 1 || page > this.totalPages || page === this.currentPage) {
+      return;
+    }
+
+    this.currentPage = page;
   }
 }
