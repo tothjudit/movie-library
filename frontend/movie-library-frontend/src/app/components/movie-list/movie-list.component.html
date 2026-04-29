@@ -13,11 +13,11 @@
     </article>
   </div>
 
-  <div *ngIf="!isLoading && displayedMovies.length === 0" class="empty-state">
+  <div *ngIf="!isLoading && filteredMovies.length === 0" class="empty-state">
     No movies found. Add your first movie.
   </div>
 
-  <div class="movie-grid" *ngIf="!isLoading">
+  <div class="movie-grid" *ngIf="!isLoading && filteredMovies.length > 0">
     <article class="movie-card" *ngFor="let movie of displayedMovies">
       <a class="poster-link" [routerLink]="['/movies', movie.id]">
         <img
@@ -27,26 +27,35 @@
           (error)="onPosterError(movie)"
         />
       </a>
+
       <h3>{{ movie.title }}</h3>
+
       <p class="meta">
         <span class="year">{{ movie.year }}</span>
         <span class="dot">•</span>
         <span>{{ movie.director || 'Unknown Director' }}</span>
       </p>
+
       <div class="genre-badges">
         <span *ngFor="let genre of getGenres(movie)">{{ genre }}</span>
       </div>
+
       <p class="description">
         {{ (movie.description || 'No description available.') | slice:0:120 }}
         <span *ngIf="(movie.description || '').length > 120">...</span>
       </p>
+
       <div class="credits">
         <span class="stars">
           <span *ngFor="let star of getStarArray(movie.rating)">★</span>
           <span class="unrated" *ngIf="getStarArray(movie.rating).length === 0">Unrated</span>
         </span>
-        <span *ngIf="movie.rating !== null && movie.rating !== undefined" class="rating">{{ movie.rating | number:'1.1-1' }}/5</span>
+
+        <span *ngIf="movie.rating !== null && movie.rating !== undefined" class="rating">
+          {{ movie.rating | number:'1.1-1' }}/5
+        </span>
       </div>
+
       <div class="actions">
         <a class="btn view-btn" [routerLink]="['/movies', movie.id]">View</a>
         <a class="btn edit-btn" [routerLink]="['/edit', movie.id]">Edit</a>
@@ -58,4 +67,38 @@
       <span>+</span>
     </a>
   </div>
+
+<div class="pagination" *ngIf="!isLoading && filteredMovies.length > pageSize">
+  <button
+    class="pagination-btn"
+    type="button"
+    (click)="goToPreviousPage()"
+    [disabled]="currentPage === 1"
+  >
+    Previous
+  </button>
+
+  <div class="page-numbers">
+    <button
+      class="page-number-btn"
+      type="button"
+      *ngFor="let page of pageNumbers"
+      (click)="goToPage(page)"
+      [class.active]="page === currentPage"
+      [attr.aria-current]="page === currentPage ? 'page' : null"
+    >
+      {{ page }}
+    </button>
+  </div>
+
+  <button
+    class="pagination-btn"
+    type="button"
+    (click)="goToNextPage()"
+    [disabled]="currentPage === totalPages"
+  >
+    Next
+  </button>
+</div>
 </section>
+
